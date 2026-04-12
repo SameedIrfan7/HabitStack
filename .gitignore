@@ -32,3 +32,4 @@ Thumbs.db
 *.local
 
 supabase-schema.sql
+setup-guide.md
