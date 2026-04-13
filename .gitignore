@@ -33,3 +33,7 @@ Thumbs.db
 
 supabase-schema.sql
 setup-guide.md
+
+supabase/.temp
+supabase/seed.sql
+.env
