@@ -3,6 +3,8 @@ import { supabase } from '../lib/supabase'
 
 const AuthCtx = createContext({})
 
+const SITE_URL = 'https://habit-stack-tau.vercel.app'
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
@@ -30,7 +32,10 @@ export function AuthProvider({ children }) {
   async function signUp({ email, password, username, displayName, avatarEmoji, isMuslim }) {
     return supabase.auth.signUp({
       email, password,
-      options: { data: { username, display_name: displayName, avatar_emoji: avatarEmoji } }
+      options: {
+        emailRedirectTo: `${SITE_URL}/auth`,
+        data: { username, display_name: displayName, avatar_emoji: avatarEmoji }
+      }
     }).then(async res => {
       if (!res.error && res.data.user) {
         await supabase.from('profiles').update({ is_muslim: isMuslim }).eq('id', res.data.user.id)
